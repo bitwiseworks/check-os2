@@ -1,4 +1,7 @@
 ## Process this file with automake to produce Makefile.in
+VENDOR ?=community
+BUILD_INFO=\#\#1\#\# $(shell date +'%d %b %Y %H:%M:%S')     $(shell uname -n)
+BUILDLEVEL_INFO=@\#$(VENDOR):$(CHECK_VERSION)\#@$(BUILD_INFO)::::$(CHECK_MICRO_VERSION)::
 
 lib_LTLIBRARIES		= libcheck.la
 noinst_LTLIBRARIES	= libcheckinternal.la
@@ -37,7 +40,8 @@ $(EXPORT_SYM): check.h.in
 	${SED} -n -e 's/^..*CK_EXPORT[[:space:]][[:space:]]*\([[:alnum:]_][[:alnum:]_]*\)..*$$/\1/p' @top_srcdir@/src/check.h.in > $@
 
 libcheck_la_DEPENDENCIES= $(EXPORT_SYM)
-libcheck_la_LDFLAGS	= -no-undefined -export-symbols $(EXPORT_SYM)
+libcheck_la_LDFLAGS	= -no-undefined \
+                   	  -buildlevel '$(BUILDLEVEL_INFO)'
 libcheck_la_SOURCES	= $(CFILES) $(HFILES)
 libcheck_la_LIBADD	= @GCOV_LIBS@ @PTHREAD_LIBS@ $(LIBSUBUNIT_LIBS) $(top_builddir)/lib/libcompat.la
 
