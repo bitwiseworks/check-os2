@@ -51,6 +51,7 @@ check_dir() {
     eval "$checkmk_cmd"
     ckstat=$?
 
+    dos2unix $outfname
     if ! diff -c "x_output" "$outfname" > "$diffname"
     then
         echo "Unexpected output differences:"
@@ -61,6 +62,7 @@ check_dir() {
     # Check stderr.
     if [ -s x_err ]
     then
+        dos2unix $errfname
         if ! diff -c "x_err" "$errfname" > "$errdiffname"
         then
             echo "Unexpected error differences:"
