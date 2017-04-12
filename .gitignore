@@ -60,3 +60,17 @@ tests/*.sh.trs
 tests/*.tap
 checkmk/*.log
 checkmk/test/*.log
+
+# additional ignored files
+ar-lib
+compile
+config.guess
+config.h.in
+config.sub
+depcomp
+doc/mdate-sh
+doc/texinfo.tex
+install-sh
+ltmain.sh
+missing
+test-driver
